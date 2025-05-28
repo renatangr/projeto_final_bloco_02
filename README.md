@@ -97,8 +97,8 @@ O **DER (Diagrama Entidade-Relacionamento)** do projeto **E-commerce de Farmáci
 
 ```mermaid
 erDiagram
-    tb_usuarios ||--o{ tb_postagens : escreve
-    tb_temas ||--o{ tb_postagens : classifica
+    tb_usuarios ||--o{ tb_produtos : escreve
+    tb_categorias ||--o{ tb_produtos : classifica
 
     USUARIO {
         bigint id PK
