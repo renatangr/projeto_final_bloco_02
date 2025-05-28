@@ -30,9 +30,10 @@ O **e-commerce de farmácia** é uma aplicação que permite que usuários publi
 Entre os principais recursos que e-commerce de farmácia oferece, destacam-se:
 
 1. Criação, edição e exclusão de produtos e categorias
-2. Associação de produtos a categorias específicas
+2. Associação de produtos a categorias específicas e usuários
 3. Listagem de produtos e categorias filtradas por ID ou Nome/Descrição
 4. Listagem de produtos de acordo com o parâmetro de preço recebido
+5. Cadastro e autenticação de usuários
 
 <br />
 
@@ -40,7 +41,7 @@ Entre os principais recursos que e-commerce de farmácia oferece, destacam-se:
 
 <br />
 
-A API do e-commerce de farmácia foi desenvolvida utilizando **Java** e o **framework Spring**, seguindo os princípios da Arquitetura MVC e REST. Ela oferece endpoints para o gerenciamento dos recursos **Produto** e **Categoria**.
+A API do e-commerce de farmácia foi desenvolvida utilizando **Java** e o **framework Spring**, seguindo os princípios da Arquitetura MVC e REST. Ela oferece endpoints para o gerenciamento dos recursos **Usuário**, **Produto** e **Categoria**.
 
 <br />
 
@@ -70,7 +71,17 @@ classDiagram
         +Categoria categoria
     }
 
-    Categoria "1" --> "*" Produto : contém
+    class Usuario {
+      - id : Long
+      - nome : String
+      - usuario : String
+      - senha : String
+      - foto : String
+      - produto : List<Produto>
+    }
+
+    Categoria "1" --> "*" Produto : classifica
+    Usuario "1" --> "0..*" Produto : cadastra
 
 ```
 
@@ -86,6 +97,16 @@ O **DER (Diagrama Entidade-Relacionamento)** do projeto **E-commerce de Farmáci
 
 ```mermaid
 erDiagram
+    tb_usuarios ||--o{ tb_postagens : escreve
+    tb_temas ||--o{ tb_postagens : classifica
+
+    USUARIO {
+        bigint id PK
+        varchar(255) nome
+        varchar(255) usuario
+        varchar(255) senha
+        varchar(5000) foto
+    }
     CATEGORIA {
         LONG id PK
         VARCHAR(255) descricao
